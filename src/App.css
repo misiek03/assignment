@@ -9,12 +9,28 @@
 }
 
 .container {
-  height: 500px;
+  height: 480px;
   width: 800px;
   position: relative;
+  background-color: #2a2a2a;
+  display: flex;
+  flex-direction: column;
 }
 
-.list {
+.tag-selector {
+  padding: 5px;
+  border: 2px solid black;
+  border-bottom: none;
+  width: 100%;
+}
+
+.tags-input {
+  width: 100%;
+  height: 2.25rem;
+  font-size: 1rem;
+}
+
+ul {
   list-style-type: none;
   padding: 5px;
   margin: 0;
@@ -23,18 +39,53 @@
   gap: 2px;
   height: 100%;
   overflow-y: scroll;
-  border: 1px solid black;
+  border: 2px solid black;
 }
 
-.list li {
+ul li {
   padding: 0.25rem 1rem;
-  /* background-color: lightgray; */
   cursor: pointer;
   border-radius: 5px;
-  /* color: #000 */
 }
 
-.list li:nth-child(2) {
+ul li.active {
   background-color: lightgray;
   color: #000;
+}
+
+.tags {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-bottom: 5px;
+}
+
+.tag {
+  position: relative;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.5em 1em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  transition: border-color 0.25s;
+  padding-right: 2.5rem;
+}
+
+button.icon-x {
+  height: 100%;
+  position: absolute;
+  margin-left: 12px;
+  border-radius: 8px;
+  transform: translateY(-9px);
+  padding: 0.6em 0.8em;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
 }

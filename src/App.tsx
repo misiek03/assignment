@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './App.css'
 import GenericList from './GenericList';
 
@@ -5,21 +6,32 @@ const items = ["JavaScript", "TypeScript", "Python", "Java", "C++", "C", "C#", "
 
 function App() {
 
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+
   function filterItems(items: string[], input: string) {
     return items.filter(item => item.toLowerCase().startsWith(input.toLowerCase()))
+                .filter(item => !selectedItems.includes(item));
+  }
+
+  function handleDelete(item: string) {
+    setSelectedItems(prev => prev.filter(i => i !== item));
+  }
+
+  function handleSubmit(item: string) {
+    setSelectedItems([...selectedItems, item]);
   }
 
   return (
     <main>
       <GenericList
         items={items}
-        selectedItems={[]}
-        currSelected={""} 
-        onSelect={() => { }} 
-        onDelete={() => { }} 
+        selectedItems={selectedItems}
+        onSelect={handleSubmit} 
+        onDelete={handleDelete} 
         renderItem={(item) => item} 
         filterItems={filterItems}
-        getKey={(item) => item.toString()} />
+        getKey={(item) => item.toString()}
+        allowNewItems={true} />
     </main>
   )
 }
