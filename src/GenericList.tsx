@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 interface IGenericListProps<T> {
   items: T[],
@@ -25,20 +25,21 @@ function GenericList<T>({
   const [value, setValue] = useState('');
   const [currSelectedIndex, setCurrSelectedIndex] = useState<number | null>(null);
   const filteredItems = filterItems(items, value);
+  const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'ArrowDown') {
       e.preventDefault();
-      setCurrSelectedIndex(( (currSelectedIndex ?? -1) + 1) % filteredItems.length);
+      setCurrSelectedIndex(((currSelectedIndex ?? -1) + 1) % filteredItems.length);
     }
     if (e.key === 'ArrowUp') {
       e.preventDefault();
-      setCurrSelectedIndex(( (currSelectedIndex ?? 0) + filteredItems.length - 1) % filteredItems.length);
+      setCurrSelectedIndex(((currSelectedIndex ?? -1) + filteredItems.length - 1) % filteredItems.length);
     }
     if (e.key === 'Enter') {
       e.preventDefault();
-      if(currSelectedIndex === null) {
-        if(allowNewItems && value !== '' && !selectedItems.includes(value as T)) {
+      if (currSelectedIndex === null) {
+        if (allowNewItems && value !== '' && !selectedItems.includes(value as T)) {
           onSelect(value as T);
         }
         return;
@@ -53,7 +54,17 @@ function GenericList<T>({
 
   useEffect(() => {
     setCurrSelectedIndex(null);
-  }, [value])
+  }, [value]);
+
+  useEffect(() => {
+    if (currSelectedIndex !== null && itemRefs.current[currSelectedIndex]) {
+      console.log(itemRefs.current);
+      itemRefs.current[currSelectedIndex]?.scrollIntoView({
+        behavior: 'auto',
+        block: 'nearest'
+      })
+    }
+  }, [currSelectedIndex]);
 
   return (
     <div className='container'>
@@ -83,7 +94,16 @@ function GenericList<T>({
           onKeyDown={handleKeyDown} />
       </div>
       <ul>
-        {filteredItems.map((item, idx) => <li className={currSelectedIndex === idx ? 'active' : ''} key={getKey(item)}>{renderItem(item)}</li>)}
+        {filteredItems.map((item, idx) => (
+          /* eslint-disable-next-line */
+          <li
+            key={getKey(item)}
+            className={currSelectedIndex === idx ? 'active' : ''}
+            onClick={() => onSelect(item)}
+            ref={el => {itemRefs.current[idx] = el}}
+          >
+            {renderItem(item)}
+          </li>))}
       </ul>
     </div>
   )

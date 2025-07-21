@@ -2,10 +2,9 @@ import { useState } from 'react';
 import './App.css'
 import GenericList from './GenericList';
 
-const items = ["JavaScript", "TypeScript", "Python", "Java", "C++", "C", "C#", "Ruby", "PHP", "Swift", "Kotlin", "Go", "Rust", "Dart", "Scala", "Perl", "Lua", "R", "MATLAB", "Julia", "Visual Basic", "Assembly", "Clojure", "Elixir", "Haskell", "F#", "Objective-C", "Shell", "PowerShell", "SQL", "PL/SQL", "Groovy", "Erlang", "Fortran", "COBOL", "VHDL", "Verilog", "Ada", "Pascal", "Scheme", "Prolog", "Smalltalk", "OCaml", "Crystal", "Nim", "Hack", "Zig", "Elm", "ReasonML", "Tcl", "Racket"];
-
 function App() {
 
+  const [items, setItems] = useState(["JavaScript", "TypeScript", "Python", "Java", "C++", "C", "C#", "Ruby", "PHP", "Swift", "Kotlin", "Go", "Rust", "Dart", "Scala", "Perl", "Lua", "R", "MATLAB", "Julia", "Visual Basic", "Assembly", "Clojure", "Elixir", "Haskell", "F#", "Objective-C", "Shell", "PowerShell", "SQL", "PL/SQL", "Groovy", "Erlang", "Fortran", "COBOL", "VHDL", "Verilog", "Ada", "Pascal", "Scheme", "Prolog", "Smalltalk", "OCaml", "Crystal", "Nim", "Hack", "Zig", "Elm", "ReasonML", "Tcl", "Racket"]);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
   function filterItems(items: string[], input: string) {
@@ -18,7 +17,13 @@ function App() {
   }
 
   function handleSubmit(item: string) {
-    setSelectedItems([...selectedItems, item]);
+    if(!items.includes(item)) {
+      setItems(prev => [...prev, item]);
+    }
+
+    if(!selectedItems.includes(item)) {
+      setSelectedItems(prev => [...prev, item]);
+    }
   }
 
   return (
