@@ -5,9 +5,21 @@ const items = ["JavaScript", "TypeScript", "Python", "Java", "C++", "C", "C#", "
 
 function App() {
 
+  function filterItems(items: string[], input: string) {
+    return items.filter(item => item.toLowerCase().startsWith(input.toLowerCase()))
+  }
+
   return (
     <main>
-      <GenericList items={items} selectedItems={[]} currSelected={""} onSelect={() => {}} onDelete={() => {}} renderItem={(item) => item} getKey={(item) => item.toString()} />
+      <GenericList
+        items={items}
+        selectedItems={[]}
+        currSelected={""} 
+        onSelect={() => { }} 
+        onDelete={() => { }} 
+        renderItem={(item) => item} 
+        filterItems={filterItems}
+        getKey={(item) => item.toString()} />
     </main>
   )
 }
