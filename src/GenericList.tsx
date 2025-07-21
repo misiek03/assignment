@@ -8,7 +8,9 @@ interface IGenericListProps<T> {
   renderItem: (item: T) => React.ReactNode,
   getKey: (item: T) => string,
   filterItems: (items: T[], input: string) => T[],
-  allowNewItems: boolean
+  allowNewItems: boolean,
+  inputLabel: string,
+  listLabel: string,
 }
 
 function GenericList<T>({
@@ -19,7 +21,9 @@ function GenericList<T>({
   renderItem,
   filterItems,
   getKey,
-  allowNewItems
+  allowNewItems,
+  inputLabel,
+  listLabel,
 }: IGenericListProps<T>) {
 
   const [value, setValue] = useState('');
@@ -81,7 +85,7 @@ function GenericList<T>({
                 className='icon-x'
                 type="button"
                 onClick={() => onDelete(item)}
-                aria-label={`Usuń ${getKey(item)}`}
+                aria-label={`Remove ${getKey(item)}`}
               >
                 x
               </button>
@@ -89,22 +93,30 @@ function GenericList<T>({
           ))}
 
         </div>
+
         <input
-          className='tags-input'
           type="text"
-          aria-autocomplete='list'
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          onKeyDown={handleKeyDown} />
+          onKeyDown={handleKeyDown}
+          aria-label={inputLabel}
+          aria-autocomplete='list'
+          aria-controls='available-list'
+          aria-activedescendant={
+            currSelectedIndex !== null 
+              ? `available-list-item-${currSelectedIndex}`
+              : undefined
+          }
+        />
       </div>
-      <ul>
+      <ul id="available-list" aria-label={listLabel}>
         {filteredItems.map((item, idx) => (
           /* eslint-disable-next-line */
           <li
             key={getKey(item)}
             className={currSelectedIndex === idx ? 'active' : ''}
             onClick={() => onSelect(item)}
-            ref={el => {itemRefs.current[idx] = el}}
+            ref={el => { itemRefs.current[idx] = el }}
           >
             {renderItem(item)}
           </li>))}

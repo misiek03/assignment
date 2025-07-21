@@ -12,7 +12,7 @@ function App() {
 
   function filterItems(items: string[], input: string) {
     return items.filter(item => item.toLowerCase().startsWith(input.toLowerCase()))
-                .filter(item => !selectedItems.includes(item));
+      .filter(item => !selectedItems.includes(item));
   }
 
   function handleDelete(item: string) {
@@ -20,11 +20,11 @@ function App() {
   }
 
   function handleSubmit(item: string) {
-    if(!items.includes(item)) {
+    if (!items.includes(item)) {
       setItems(prev => [...prev, item]);
     }
 
-    if(!selectedItems.includes(item)) {
+    if (!selectedItems.includes(item)) {
       setSelectedItems(prev => [...prev, item]);
     }
   }
@@ -35,15 +35,19 @@ function App() {
 
   return (
     <main>
+      <h1>Autocomplete list</h1>
       <GenericList
         items={items}
         selectedItems={selectedItems}
-        onSelect={handleSubmit} 
-        onDelete={handleDelete} 
-        renderItem={(item) => item} 
+        onSelect={handleSubmit}
+        onDelete={handleDelete}
+        renderItem={(item) => item}
         filterItems={filterItems}
         getKey={(item) => item.toString()}
-        allowNewItems={true} />
+        allowNewItems={true}
+        inputLabel='Search technologies'
+        listLabel='Available options'
+      />
     </main>
   )
 }
