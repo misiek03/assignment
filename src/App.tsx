@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css'
 import GenericList from './GenericList';
 
 function App() {
 
-  const [items, setItems] = useState(["JavaScript", "TypeScript", "Python", "Java", "C++", "C", "C#", "Ruby", "PHP", "Swift", "Kotlin", "Go", "Rust", "Dart", "Scala", "Perl", "Lua", "R", "MATLAB", "Julia", "Visual Basic", "Assembly", "Clojure", "Elixir", "Haskell", "F#", "Objective-C", "Shell", "PowerShell", "SQL", "PL/SQL", "Groovy", "Erlang", "Fortran", "COBOL", "VHDL", "Verilog", "Ada", "Pascal", "Scheme", "Prolog", "Smalltalk", "OCaml", "Crystal", "Nim", "Hack", "Zig", "Elm", "ReasonML", "Tcl", "Racket"]);
+  const [items, setItems] = useState<string[]>(() => {
+    const savedItems = localStorage.getItem('items');
+    return savedItems ? JSON.parse(savedItems) : ["JavaScript", "TypeScript", "Python", "Java", "C++", "C", "C#", "Ruby", "PHP", "Swift", "Kotlin", "Go", "Rust", "Dart", "Scala", "Perl", "Lua", "R", "MATLAB", "Julia", "Visual Basic", "Assembly", "Clojure", "Elixir", "Haskell", "F#", "Objective-C", "Shell", "PowerShell", "SQL", "PL/SQL", "Groovy", "Erlang", "Fortran", "COBOL", "VHDL", "Verilog", "Ada", "Pascal", "Scheme", "Prolog", "Smalltalk", "OCaml", "Crystal", "Nim", "Hack", "Zig", "Elm", "ReasonML", "Tcl", "Racket"];
+  });
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
   function filterItems(items: string[], input: string) {
@@ -25,6 +28,10 @@ function App() {
       setSelectedItems(prev => [...prev, item]);
     }
   }
+
+  useEffect(() => {
+    localStorage.setItem('items', JSON.stringify(items));
+  }, [items]);
 
   return (
     <main>

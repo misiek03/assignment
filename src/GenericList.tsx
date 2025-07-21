@@ -28,6 +28,10 @@ function GenericList<T>({
   const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      setCurrSelectedIndex(null);
+    }
     if (e.key === 'ArrowDown') {
       e.preventDefault();
       setCurrSelectedIndex(((currSelectedIndex ?? -1) + 1) % filteredItems.length);
