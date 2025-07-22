@@ -30,23 +30,23 @@ Platforma korepetycyjna rozwijana we dwie osoby – zbudowana przy użyciu **Nex
 Celem było stworzenie nowoczesnej, lekkiej i łatwej w rozwoju platformy do umawiania lekcji z korepetytorami.
 
 ### Obecnie dostępne funkcje:
-- Strona główna z formularzem umawiania lekcji.
-- Statyczny blog (CMS oparty o Supabase).
+- Strona główna z formularzem umawiania lekcji,
+- Blog z prostym CMS do zarządzania postami.
 
 ### Co już zostało zrobione (czeka na wdrożenie):
-- **Dashboard ucznia i korepetytora** – pokazuje umówione lekcje, profil, historię.
+- **Dashboard ucznia i korepetytora** – pokazuje umówione lekcje, profil, historię,
 - **System dostępności i rezerwacji**:
-  - Korepetytor może ustawić dostępne dni i godziny.
-  - Uczeń umawia się przez **kalendarz**, wybierając jeden z wolnych terminów.
+  - Korepetytor może ustawić dostępne dni i godziny,
+  - Uczeń umawia się przez **kalendarz**, wybierając jeden z wolnych terminów,
 - **Logika backendowa rezerwacji i obsługa konfliktów czasowych.**
 
 ### Planowane funkcje:
-- **System płatności** (np. Stripe) z poziomu dashboardu.
-- Powiadomienia e-mail i SMS (np. rezerwacja, odwołanie, przypomnienie).
+- **System płatności** - Stripe
+- Powiadomienia E-mail i SMS (np. rezerwacja, odwołanie, przypomnienie).
 
 - ## Co można by poprawić
 
-- **Większe rozdzielenie logiki od UI** – obecnie część logiki (np. dotycząca formularzy, rezerwacji czy interakcji z Supabase) znajduje się bezpośrednio w komponentach React. W przyszłości warto przenieść tę logikę do osobnych hooków, helperów czy modułów, aby ułatwić rozwój i testowanie.
+- **Większe rozdzielenie logiki od UI** – obecnie część logiki (np. dotycząca formularzy, rezerwacji) znajduje się bezpośrednio w komponentach React. W przyszłości warto to mocniej rozdzielić, aby ułatwić rozwój i testowanie.
 - **Modularne API** – część funkcjonalności (np. zarządzanie rezerwacjami, dostępnością) mogłaby być zaimplementowana jako zestaw osobnych endpointów.
 - **Brak testów automatycznych** – wszystkie testy są obecnie manualne. Wprowadzenie testów jednostkowych i e2e zwiększyłoby niezawodność projektu, co przy wprowadzeniu płatności będzie niezbędne.
 
@@ -56,6 +56,6 @@ Celem było stworzenie nowoczesnej, lekkiej i łatwej w rozwoju platformy do uma
 
 Każdy z projektów dał mi inne doświadczenie.
 
-W **Teyli** rozwijałem sklep oparty na PrestaShop, pracując w złożonym ekosystemie modułów, motywów i danych. Skupiłem się na dopracowaniu UI i optymalizacji frontendu czy samej bazy danych
+W **Teyli** rozwijałem sklep oparty na PrestaShop, pracując w złożonym ekosystemie modułów, motywów i danych. Skupiałem się na dopracowaniu UI i optymalizacji frontendu czy nawet samej bazy danych.
 
 Z kolei projekt **Korepetycje SWB** pozwolił mi od zera zaplanować architekturę aplikacji, przetestować nowoczesny stack i przemyśleć, jak projektować funkcje z myślą o przyszłym rozwoju. Dobrze było zobaczyć, jak nawet prosta aplikacja może z czasem stać się bardziej złożonym systemem.
